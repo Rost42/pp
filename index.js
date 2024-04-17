@@ -1,3 +1,5 @@
+let maxNumberIdTask;
+
 const keyStorege = 'key_task';
 let myTasklist = [
 ];
