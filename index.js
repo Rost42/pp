@@ -1,4 +1,29 @@
-let maxNumberIdTask = 2;
+const keyStorege = 'key_task';
+let myTasklist = [
+];
+
+let storegeData = localStorage.getItem(keyStorege);
+if(storegeData != null) {
+    myTasklist = JSON.parse(localStorage.getItem(keyStorege));
+    myTasklist = JSON.parse(storegeData)
+    maxNumberIdTask = myTasklist 
+    .map(x => x.id)
+.reduce((a,b) => Math.max(a,b), -Infinity) ;
+myTasklist.forEach(t => renderTask(t))
+
+}
+/*
+myTasklist = JSON.parse(localStorage.getItem(keyStorege));
+
+let maxNumberIdTask = myTasklist
+.map(x => x.id)
+.reduce((a,b) => Math.max(a,b), -Infinity) ;
+
+if(myTasklist.length > 0){
+    myTasklist.forEach(t => renderTask(t))
+
+}
+*/
 document.getElementById('add-btn').onclick = AddNewTask;
 
 document.getElementById('tsk-lst').onclick = marKDone;
@@ -37,23 +62,34 @@ function AddNewTask() {
     const taskName = taskNameElem.value.trim();
     if (taskName) {
         maxNumberIdTask ++;
-        const listElem = document.getElementById('tsk-lst');
 
-        const newTaskElem = document.createElement('li');
-        newTaskElem.innerHTML = ` 
-        <div class="item-task">
-            <input class="checkbox-to" id="checkbox-task-${maxNumberIdTask}" name="checkbox-task-${maxNumberIdTask}" type="checkbox"
-            onchange="markDone(this)" > 
-            <label for="checkbox-task-${maxNumberIdTask}">
-            ${taskName}                
-            </label>
-        </div>
-    `;
-        listElem.prepend(newTaskElem)
-        alert(taskName)
-        taskNameElem.value == "";
+        let newTask = {
+id: maxNumberIdTask,
+title: taskName,
+        }
+        myTasklist.push(newTask);
+        renderTask(newTask);
+        localStorage.setItem(keyStorege, JSON.stringify(myTasklist));
     }
     else {
         alert('ААА')
     }
+}
+
+function renderTask(task) {
+
+    const listElem = document.getElementById('tsk-lst');
+
+    const newTaskElem = document.createElement('li');
+    newTaskElem.innerHTML = ` 
+    <div class="item-task">
+        <input class="checkbox-to" id="checkbox-task-${task.id}" name="checkbox-task-${task.id}" type="checkbox"
+        onchange="markDone(this)" > 
+        <label for="checkbox-task-${task.id}">
+        ${task.title}                
+        </label>
+    </div>`;
+    listElem.prepend(newTaskElem)
+    //alert(task.name)
+    taskNameElem.value == "";
 }
