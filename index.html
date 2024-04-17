@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои супер дела</title>
+    <style>
+        ul{
+            list-style: none;
+        }
+    </style>
+<body>
+    <div>
+        <h1>Мои дела</h1>
+        <input id="tsk-imp" type="text" placeholder="Что добавить?"/>
+        <button id="add-btn">Добавить</button>
+        <ul id="tsk-lst" class="marked">
+            <li>
+                <div class="item-task">
+                    <input onchange="markDone(this)" class="checkbox-to" id="checkbox-task-1" name="checkbox-task-1" type="checkbox"> 
+                    <label for="checkbox-task-1">
+                        Задача 1
+                    </label>
+                </div>
+            </li>
+            <li>
+                <div class="item-task">
+                    <input onchange="markDone(this)" class="checkbox-to" id="checkbox-task-2" name="checkbox-task-2" type="checkbox"> 
+                    <label for="checkbox-task-2">
+                        Задача 2                
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script src="index.js">
+
+    </script>
+</body>
+</html>
