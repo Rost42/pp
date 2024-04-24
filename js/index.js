@@ -1,21 +1,20 @@
 let maxNumberIdTask;
 
-const keyStorege = 'key_task';
+const keyStorage = 'key_task';
 let myTasklist = [
 ];
 
-let storegeData = localStorage.getItem(keyStorege);
-if(storegeData != null) {
-    myTasklist = JSON.parse(localStorage.getItem(keyStorege));
-    myTasklist = JSON.parse(storegeData)
-    maxNumberIdTask = myTasklist 
-    .map(x => x.id)
-.reduce((a,b) => Math.max(a,b), -Infinity) ;
-myTasklist.forEach(t => renderTask(t))
+let storageData = localStorage.getItem(keyStorage);
+if (storageData != null) {
+    myTasklist = JSON.parse(storageData)
+    maxNumberIdTask = myTasklist
+        .map(x => x.id)
+        .reduce((a, b) => Math.max(a, b), -Infinity);
+    myTasklist.forEach(t => renderTask(t))
 
 }
 /*
-myTasklist = JSON.parse(localStorage.getItem(keyStorege));
+myTasklist = JSON.parse(localStorage.getItem(keyStorage));
 
 let maxNumberIdTask = myTasklist
 .map(x => x.id)
@@ -28,28 +27,28 @@ if(myTasklist.length > 0){
 */
 document.getElementById('add-btn').onclick = AddNewTask;
 
-document.getElementById('tsk-lst').onclick = marKDone;
+// document.getElementById('tsk-lst').onclick = marKDone;
 
 document.addEventListener('keydown', check);
 
-document.getElementById('tsk-lst').onmouseover = showActions;
-document.getElementById('tsk-lst').onmouseout = hideActions;
+// document.getElementById('tsk-lst').onmouseover = showActions;
+// document.getElementById('tsk-lst').onmouseout = hideActions;
 
 function showActions(ev) {
     const btn = document.createElement('button')
     btn.innerText = 'Удалить';
     ev.target.append(btn);
 }
-function hideActions(ev) {
-    const btn = ev.target.getElementById('button');
-    btn.parentNode.removeChild(btn);
-}
+// function hideActions(ev) {
+//     const btn = ev.target.getElementById('button');
+//     btn.parentNode.removeChild(btn);
+// }
 function markDone(elem) {
     let labelElem = document.querySelector(`[for='${elem.id}'`)
-    if(elem.checked) {
+    if (elem.checked) {
         labelElem.style.textDecoration = 'line-through';
-    } else{
-        labelElem.style.textDecoration = 'none'  ;
+    } else {
+        labelElem.style.textDecoration = 'none';
     }
 }
 
@@ -63,19 +62,18 @@ function AddNewTask() {
     const taskNameElem = document.getElementById('tsk-imp');
     const taskName = taskNameElem.value.trim();
     if (taskName) {
-        maxNumberIdTask ++;
+        maxNumberIdTask++;
 
         let newTask = {
-id: maxNumberIdTask,
-title: taskName,
+            id: maxNumberIdTask,
+            title: taskName,
         }
         myTasklist.push(newTask);
         renderTask(newTask);
-        localStorage.setItem(keyStorege, JSON.stringify(myTasklist));
+        localStorage.setItem(keyStorage, JSON.stringify(myTasklist));
     }
-    else {
-        alert('ААА')
-    }
+
+    taskNameElem.value = null;
 }
 
 function renderTask(task) {
@@ -91,7 +89,6 @@ function renderTask(task) {
         ${task.title}                
         </label>
     </div>`;
+    
     listElem.prepend(newTaskElem)
-    //alert(task.name)
-    taskNameElem.value == "";
 }
